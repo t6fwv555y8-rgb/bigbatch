@@ -1,0 +1,27 @@
+/* Shared styles for the policy pages (Classic 98 look, matches the landing page). */
+:root {
+  --face: #d4d0c8; --shadow: #404040; --hi: #ffffff; --bannerA: #0a246a; --bannerB: #4073cc;
+  --heading: #0a246a; --text: #101010; --sub: #404040; --page: #008080; --accent: #ff9e1a;
+}
+* { box-sizing: border-box; }
+body { margin: 0; font: 15px/1.6 Verdana, Geneva, Tahoma, sans-serif; color: var(--text); background: var(--page); }
+a { color: #0a246a; }
+header { background: linear-gradient(90deg, var(--bannerA), var(--bannerB)); border-bottom: 3px solid var(--shadow); }
+header .wrap { max-width: 820px; margin: 0 auto; padding: 10px 16px; display: flex; align-items: center; gap: 12px; }
+header img { width: 40px; image-rendering: pixelated; }
+header .logo { font: italic bold 26px Verdana, sans-serif; color: #fff; text-decoration: none; }
+header .logo b { color: var(--accent); }
+header nav { margin-left: auto; font-size: 13px; }
+header nav a { color: #fff; text-decoration: none; padding: 4px 8px; }
+header nav a:hover { background: rgba(255,255,255,.18); }
+main { max-width: 820px; margin: 28px auto; padding: 0 16px; }
+.win { background: var(--face); border: 2px solid; border-color: var(--hi) var(--shadow) var(--shadow) var(--hi); box-shadow: 4px 4px 0 rgba(0,0,0,.35); }
+.win > .bar { background: linear-gradient(90deg, var(--bannerA), var(--bannerB)); color: #fff; padding: 4px 10px; font-weight: bold; font-size: 13px; }
+.win > .body { padding: 18px 22px 22px; }
+h1 { margin: 0 0 4px; font-size: 26px; color: var(--heading); }
+h2 { margin: 22px 0 6px; font-size: 17px; color: var(--heading); }
+p, li { font-size: 14px; }
+.updated { color: var(--sub); font-size: 12px; margin: 0 0 14px; }
+.note { background: #fffbd0; border: 2px solid; border-color: var(--shadow) var(--hi) var(--hi) var(--shadow); padding: 8px 12px; font-size: 13px; }
+footer { max-width: 820px; margin: 0 auto 30px; padding: 0 16px; color: #fff; font-size: 12px; }
+footer a { color: #fff; }

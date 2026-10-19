@@ -223,12 +223,13 @@
         <a class="btn" data-link="download" href="#download">Download</a>
       </div></div>
       <div class="win"><div class="bar">Collector Pro <i>_&#9633;x</i></div><div class="body">
-        <h3>Collector Pro</h3><div class="price" data-price>Price coming soon</div>
+        <h3>Collector Pro</h3><div class="price"><span data-price>Price coming soon</span> <small style="font-size:13px;font-weight:normal">one-time</small></div>
         <ul>
           <li>Unlimited price checks against Discogs</li>
           <li>Prepare Listing drafts with an auction or Buy It Now suggestion</li>
           <li>Sell buttons for items worth selling</li>
-          <li>One license key, works on your Mac</li>
+          <li>One license key for up to 2 Macs</li>
+          <li>14-day refund, no questions asked</li>
         </ul>
         <a class="btn primary" data-link="buy" href="#pricing">Buy Collector Pro</a>
       </div></div>
@@ -244,6 +245,8 @@
     <details><summary>Can it save music or video?</summary><p>BigBatch can save audio and video that you have the right to keep: your own uploads, Creative Commons and public-domain material, and anything you have permission to save. You're responsible for following copyright law and each site's terms of service.</p></details>
     <details><summary>How does the AI playlist maker work?</summary><p>Torta works in two modes. Quick mode matches your words to the track names in your library, entirely on your Mac. If you paste your own Claude API key in Options, Torta uses it for smarter mixes; in that mode your request and your track titles are sent to Anthropic using your key, and you pay for your own usage. The key is kept in your Mac's Keychain.</p></details>
     <details><summary>Does BigBatch work with iPods?</summary><p>It can prepare iPod-friendly files and copy them to Rockbox iPods, or add them to a playlist in the Music app so you can sync a stock iPod. This part is new, so tell us if your model doesn't behave.</p></details>
+    <details><summary>What's your refund policy?</summary><p>Collector Pro has a 14-day refund window, no questions asked. See the <a href="refund.html">Refund Policy</a>.</p></details>
+    <details><summary>Where do I get help?</summary><p>Open an issue on our <a href="https://github.com/t6fwv555y8-rgb/bigbatch/issues">support page</a>. Issues are public, so please don't include personal information, order numbers or license keys. You can also use the Help tab inside the app to build a diagnostic report.</p></details>
     <details><summary>Something broke. Now what?</summary><p>Open the Help tab. Run Check tests the app's tools, and Send Help Report bundles a screenshot and diagnostics into a zip you can send to us. Nothing is sent automatically.</p></details>
   </section>
 </main>
@@ -253,7 +256,7 @@
     <p><b>BigBatch</b> &middot; made for people who still love owning music.</p>
     <p>Disclosure: some links to eBay and other stores may earn BigBatch a small commission when you buy. It costs you nothing extra.</p>
     <p>BigBatch is an independent app. It is not affiliated with or endorsed by Apple, Discogs, eBay, Bandcamp or any music player or label mentioned here. All trademarks belong to their owners.</p>
-    <p><a href="#top">Back to top</a></p>
+    <p><a href="terms.html">Terms</a> &middot; <a href="privacy.html">Privacy</a> &middot; <a href="refund.html">Refunds</a> &middot; <a href="https://github.com/t6fwv555y8-rgb/bigbatch/issues">Support</a> &middot; <a href="#top">Back to top</a></p>
   </div>
 </footer>
 
@@ -262,7 +265,7 @@
   const CONFIG = {
     download: "https://github.com/t6fwv555y8-rgb/bigbatch/releases/latest/download/BigBatch.zip",
     buy: "",        // your Lemon Squeezy (or other) checkout URL for Collector Pro
-    price: ""       // e.g. "$19", shown on the Collector Pro card
+    price: "$19"    // shown on the Collector Pro card
   };
 
   for (const a of document.querySelectorAll("[data-link]")) {
