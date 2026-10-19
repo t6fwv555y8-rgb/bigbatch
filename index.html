@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BigBatch</title>
+<meta name="description" content="BigBatch is a retro-skinned Mac app for collectors: hunt for sealed copies, track what you want, price your shelf, and keep a library with a classic desktop player.">
+<link rel="icon" href="img/icon.png">
+<style>
+  /* Skins mirror the app. Switch with the buttons in the Skins section. */
+  :root {
+    --face: #d4d0c8; --shadow: #404040; --hi: #ffffff; --bannerA: #0a246a; --bannerB: #4073cc;
+    --accent: #ff9e1a; --heading: #0a246a; --text: #101010; --sub: #404040; --field: #ffffff;
+    --sel: #d6e0f7; --lcdbg: #0b1a0b; --lcdfg: #38ff6a; --page: #008080;
+  }
+  [data-skin="midnight"] { --face:#2a2a31; --shadow:#0d0d10; --hi:#55555f; --bannerA:#101018; --bannerB:#3a3a52; --accent:#7cff4f; --heading:#7cff4f; --text:#e6e6ea; --sub:#a0a0ac; --field:#15151b; --sel:#2f4a2f; --lcdbg:#000; --lcdfg:#7cff4f; --page:#0b0b10; }
+  [data-skin="sega"]     { --face:#4a1016; --shadow:#1a0407; --hi:#8a3a40; --bannerA:#3d0a10; --bannerB:#ee3324; --accent:#ffcc33; --heading:#ffcc33; --text:#ffe9d0; --sub:#d9a98f; --field:#2b0a0e; --sel:#7d1017; --lcdbg:#1a0407; --lcdfg:#ffcc33; --page:#220609; }
+  [data-skin="vapor"]    { --face:#2b1d52; --shadow:#120b2a; --hi:#6d55b3; --bannerA:#2a1060; --bannerB:#ff4fc3; --accent:#00e5ff; --heading:#00e5ff; --text:#ffd9f6; --sub:#c9a8e0; --field:#1b1038; --sel:#5b2a8f; --lcdbg:#0f0630; --lcdfg:#00e5ff; --page:#150a30; }
+  [data-skin="terminal"] { --face:#0c110c; --shadow:#000; --hi:#2f5a2f; --bannerA:#000; --bannerB:#0c4a14; --accent:#33ff33; --heading:#33ff33; --text:#33ff33; --sub:#1fae1f; --field:#000; --sel:#0f3a0f; --lcdbg:#000; --lcdfg:#33ff33; --page:#000; }
+  [data-skin="bubble"]   { --face:#ffd1e8; --shadow:#8a3a68; --hi:#fff0f8; --bannerA:#c2187f; --bannerB:#ff7ac4; --accent:#fff200; --heading:#b0116e; --text:#3a1030; --sub:#7a3a62; --field:#fff8fc; --sel:#ffb3dc; --lcdbg:#3a1030; --lcdfg:#ff7ac4; --page:#ffb8dc; }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; font: 15px/1.55 Verdana, Geneva, Tahoma, sans-serif; color: var(--text); background: var(--page); }
+  a { color: inherit; }
+  img { max-width: 100%; height: auto; display: block; }
+  .wrap { max-width: 1040px; margin: 0 auto; padding-left: 16px; padding-right: 16px; }
+
+  /* beveled "window" panels */
+  .win { background: var(--face); border: 2px solid; border-color: var(--hi) var(--shadow) var(--shadow) var(--hi); box-shadow: 4px 4px 0 rgba(0,0,0,.35); }
+  .win > .bar { background: linear-gradient(90deg, var(--bannerA), var(--bannerB)); color: #fff; padding: 4px 10px; font-weight: bold; font-size: 13px; display: flex; justify-content: space-between; align-items: center; }
+  .win > .bar i { font-style: normal; letter-spacing: 3px; opacity: .9; }
+  .win > .body { padding: 16px; }
+  .sunk { background: var(--field); border: 2px solid; border-color: var(--shadow) var(--hi) var(--hi) var(--shadow); }
+  .btn { display: inline-block; text-decoration: none; padding: 10px 20px; font: bold 14px Verdana, sans-serif; color: var(--text); background: var(--face); border: 2px solid; border-color: var(--hi) var(--shadow) var(--shadow) var(--hi); cursor: pointer; }
+  .btn:hover { background: var(--sel); }
+  .btn:active { border-color: var(--shadow) var(--hi) var(--hi) var(--shadow); }
+  .btn.primary { background: var(--accent); color: #111; }
+  .btn.small { padding: 5px 12px; font-size: 12px; }
+  .btn[aria-pressed="true"] { border-color: var(--shadow) var(--hi) var(--hi) var(--shadow); background: var(--sel); }
+
+  header { background: linear-gradient(90deg, var(--bannerA), var(--bannerB)); border-bottom: 3px solid var(--shadow); }
+  header .wrap { display: flex; align-items: center; gap: 12px; padding: 10px 16px; }
+  header img { width: 44px; image-rendering: pixelated; }
+  .logo { font: italic bold 28px Verdana, sans-serif; color: #fff; text-decoration: none; }
+  .logo b { color: var(--accent); }
+  nav { margin-left: auto; display: flex; gap: 6px; flex-wrap: wrap; }
+  nav a { color: #fff; text-decoration: none; padding: 4px 10px; font-size: 13px; }
+  nav a:hover { background: rgba(255,255,255,.18); }
+
+  .hero { padding-top: 44px; padding-bottom: 28px; }
+  .hero .grid { display: grid; grid-template-columns: 1fr 1.15fr; gap: 28px; align-items: center; }
+  .hero h1 { font-size: 38px; line-height: 1.1; margin: 0 0 12px; color: var(--heading); text-shadow: 2px 2px 0 rgba(0,0,0,.15); }
+  .hero p { margin: 0 0 18px; color: var(--text); font-size: 16px; }
+  .cta { display: flex; gap: 12px; flex-wrap: wrap; }
+  .tag { display: inline-block; font-size: 11px; padding: 2px 8px; background: var(--accent); color: #111; font-weight: bold; margin-bottom: 10px; }
+  .sub { color: var(--sub); font-size: 12px; margin-top: 10px; }
+  .shot { border: 2px solid; border-color: var(--hi) var(--shadow) var(--shadow) var(--hi); background: var(--face); padding: 4px; }
+  .shot img { width: 100%; }
+
+  section.wrap { padding-top: 28px; padding-bottom: 28px; }
+  h2 { margin: 0 0 14px; font-size: 24px; color: var(--heading); }
+  .on-page h2, .on-page > p { color: var(--text); }
+  .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .features h3 { margin: 0 0 6px; font-size: 15px; color: var(--heading); }
+  .features p { margin: 0; font-size: 13px; color: var(--text); }
+  .features .ico { font-size: 26px; margin-bottom: 6px; }
+
+  .gallery { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; margin-top: 16px; }
+  .gallery figure { margin: 0; }
+  .gallery figcaption { font-size: 12px; margin-top: 6px; color: var(--text); }
+  .skins { display: flex; gap: 8px; flex-wrap: wrap; margin: 8px 0 4px; }
+
+  .plans { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .plans h3 { margin: 0 0 4px; color: var(--heading); font-size: 20px; }
+  .price { font-size: 28px; font-weight: bold; margin: 6px 0 10px; }
+  .plans ul { margin: 0 0 14px; padding-left: 20px; font-size: 13px; }
+  .plans li { margin: 4px 0; }
+
+  .tortas { display: grid; grid-template-columns: repeat(9, 1fr); gap: 6px; }
+  .tortas img { image-rendering: pixelated; width: 100%; }
+  .tortas .fan { border: 2px solid var(--shadow); }
+  details { margin: 8px 0; }
+  summary { cursor: pointer; font-weight: bold; padding: 8px 10px; background: var(--face); border: 2px solid; border-color: var(--hi) var(--shadow) var(--shadow) var(--hi); }
+  details p { margin: 0; padding: 10px 12px; font-size: 13px; }
+
+  footer { background: var(--face); border-top: 3px solid var(--shadow); margin-top: 28px; padding: 22px 0; font-size: 12px; color: var(--sub); }
+  footer p { margin: 6px 0; }
+
+  @media (max-width: 800px) {
+    .hero .grid, .plans { grid-template-columns: 1fr; }
+    .features { grid-template-columns: 1fr 1fr; }
+    .gallery { grid-template-columns: 1fr; }
+    .hero h1 { font-size: 32px; }
+  }
+  @media (max-width: 800px) { .tortas { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 520px) { .features { grid-template-columns: 1fr; } nav { display: none; } }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+</style>
+</head>
+<body data-skin="classic">
+
+<header>
+  <div class="wrap">
+    <img src="img/icon.png" alt="BigBatch pixel-art torta icon">
+    <a class="logo" href="#top"><b>Big</b>Batch</a>
+    <nav aria-label="Main">
+      <a href="#features">Features</a>
+      <a href="#skins">Skins</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <div class="wrap hero">
+    <div class="grid">
+      <div class="win"><div class="bar">Welcome to BigBatch <i>_&#9633;x</i></div><div class="body">
+        <span class="tag">BETA &middot; macOS</span>
+        <h1>Hunt it. Hear it. Own it.</h1>
+        <p>BigBatch is a retro-skinned Mac app for people who still love physical media. Keep a library with a classic desktop player, track what you keep searching for, jump straight to sealed copies, and find out which records on your shelf are actually worth selling.</p>
+        <div class="cta">
+          <a class="btn primary" data-link="download" href="#download">Download for Mac</a>
+          <a class="btn" data-link="buy" href="#pricing">Get Collector Pro</a>
+        </div>
+        <p class="sub">Free to try &middot; Intel and Apple Silicon &middot; macOS 13 or newer</p>
+      </div></div>
+      <div class="shot"><img src="img/library.png" alt="BigBatch with the Sega Red skin, showing the library and the built-in player"></div>
+    </div>
+  </div>
+
+  <section id="features" class="wrap">
+    <h2 style="color:var(--text)">Built for collectors</h2>
+    <div class="features">
+      <div class="win"><div class="bar">Hunt <i>_&#9633;x</i></div><div class="body">
+        <div class="ico">&#127919;</div><h3>Your hunting list</h3>
+        <p>BigBatch remembers what you search for, on your own Mac, and ranks it. One click opens sealed copies on eBay (newest first), mint copies on Discogs, or the artist on Bandcamp.</p></div></div>
+      <div class="win"><div class="bar">Own it <i>_&#9633;x</i></div><div class="body">
+        <div class="ico">&#128191;</div><h3>Buy the real thing</h3>
+        <p>Every search shows where to buy music: Bandcamp, Discogs, eBay, or a map of record shops near you. Buying from the artist or a local shop is how scenes survive.</p></div></div>
+      <div class="win"><div class="bar">Price it <i>_&#9633;x</i></div><div class="body">
+        <div class="ico">&#128176;</div><h3>Sell only what's valuable</h3>
+        <p>List what you own with its condition. BigBatch checks current Discogs prices and unlocks the Sell buttons only for items above your threshold, with an auction-or-Buy-It-Now suggestion.</p></div></div>
+      <div class="win"><div class="bar">Library <i>_&#9633;x</i></div><div class="body">
+        <div class="ico">&#127925;</div><h3>Library and player</h3>
+        <p>A tidy library of your files with a classic desktop-style player: transport buttons, seek, volume and a pixel spectrum.</p></div></div>
+      <div class="win"><div class="bar">iPod <i>_&#9633;x</i></div><div class="body">
+        <div class="ico">&#128250;</div><h3>iPod ready</h3>
+        <p>Pick iPod-friendly formats, copy straight to Rockbox iPods, or add to a playlist in the Music app to sync a stock iPod.</p></div></div>
+      <div class="win"><div class="bar">Torta DJ <i>_&#9633;x</i></div><div class="body">
+        <div class="ico">&#127828;</div><h3>Ask Torta for a playlist</h3>
+        <p>Tell Torta, our pixel sandwich DJ, what you're in the mood for ("45 minutes of heavy stuff for the gym") and get a playlist from your own library, ready for your iPod. Works offline; add your own Claude API key for smarter AI mixes.</p></div></div>
+      <div class="win"><div class="bar">Merch <i>_&#9633;x</i></div><div class="body">
+        <div class="ico">&#128085;</div><h3>Band-first merch</h3>
+        <p>Merch links always start with the band's own pages (their Bandcamp, then their official store, then their label), and only then branch out to marketplaces.</p></div></div>
+      <div class="win"><div class="bar">Grades <i>_&#9633;x</i></div><div class="body">
+        <div class="ico">&#127891;</div><h3>Grade everything</h3>
+        <p>Give any track in your library a letter grade, a category (music, game, movie, other) and a private note: where you found it, why you love it, what to hunt next. Sort by grade. Notes never leave your Mac.</p></div></div>
+      <div class="win"><div class="bar">Tortadex <i>_&#9633;x</i></div><div class="body">
+        <div class="ico">&#127828;</div><h3>Catch them all</h3>
+        <p>Every filling has its own sandwich creature: Milanesa, Cubana, Al Pastor, Chorizo, Jam&oacute;n, Pollo, Carnitas and Aguacate. You catch them just by using BigBatch. Locked ones tell you what to do.</p></div></div>
+      <div class="win"><div class="bar">Skins <i>_&#9633;x</i></div><div class="body">
+        <div class="ico">&#127912;</div><h3>Six skins, more coming</h3>
+        <p>Classic 98, Midnight Amp, Sega Red, Vaporwave, Terminal Green and Bubblegum. Because software should be fun to look at.</p></div></div>
+    </div>
+  </section>
+
+  <section id="skins" class="wrap">
+    <div class="win">
+      <div class="bar">Skins and screenshots <i>_&#9633;x</i></div>
+      <div class="body">
+        <p style="margin-top:0">Try a skin on this page. They're the same ones inside the app.</p>
+        <div class="skins" role="group" aria-label="Choose a skin">
+          <button class="btn small" data-skin-btn="classic" aria-pressed="true">Classic 98</button>
+          <button class="btn small" data-skin-btn="midnight" aria-pressed="false">Midnight Amp</button>
+          <button class="btn small" data-skin-btn="sega" aria-pressed="false">Sega Red</button>
+          <button class="btn small" data-skin-btn="vapor" aria-pressed="false">Vaporwave</button>
+          <button class="btn small" data-skin-btn="terminal" aria-pressed="false">Terminal Green</button>
+          <button class="btn small" data-skin-btn="bubble" aria-pressed="false">Bubblegum</button>
+        </div>
+        <div class="gallery">
+          <figure class="shot"><img src="img/buy-strip.png" alt="Search tab with the Buy it strip in the Vaporwave skin" loading="lazy"><figcaption>Search, with one-click buy links and a Sealed button.</figcaption></figure>
+          <figure class="shot"><img src="img/hunting.png" alt="The hunting list in the Midnight Amp skin" loading="lazy"><figcaption>Your hunting list: what you keep searching for.</figcaption></figure>
+          <figure class="shot"><img src="img/collection.png" alt="Collection tab showing a valuable record marked SELL and a cheap CD marked keep" loading="lazy"><figcaption>Your collection: SELL only when it's worth it.</figcaption></figure>
+          <figure class="shot"><img src="img/ipod.png" alt="The iPod tab in the Midnight Amp skin" loading="lazy"><figcaption>iPod tab: formats, Rockbox copy and Music sync.</figcaption></figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="tortas" class="wrap">
+    <div class="win">
+      <div class="bar">Meet the Tortas <i>_&#9633;x</i></div>
+      <div class="body">
+        <p style="margin-top:0">One sandwich creature per filling, drawn pixel by pixel. Meanwhile a fan who never got over the iPod and Zune days dances in the corner of the app whenever music plays.</p>
+        <div class="tortas">
+          <img src="img/tortas/torta_milanesa.png" alt="Milly the Milanesa, a pixel-art sandwich creature">
+          <img src="img/tortas/torta_cubana.png" alt="Cuba the Cubana">
+          <img src="img/tortas/torta_alpastor.png" alt="Pasto the Al Pastor">
+          <img src="img/tortas/torta_chorizo.png" alt="Chori the Chorizo">
+          <img src="img/tortas/torta_jamon.png" alt="Jami the Jamon">
+          <img src="img/tortas/torta_pollo.png" alt="Polly the Pollo">
+          <img src="img/tortas/torta_carnitas.png" alt="Carni the Carnitas">
+          <img src="img/tortas/torta_aguacate.png" alt="Avo the Aguacate">
+          <img class="fan" src="img/tortas/dancer.png" alt="The dancing fan holding an iPod">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="pricing" class="wrap">
+    <h2 style="color:var(--text)">Simple pricing</h2>
+    <div class="plans">
+      <div class="win"><div class="bar">Free <i>_&#9633;x</i></div><div class="body">
+        <h3>BigBatch</h3><div class="price">$0</div>
+        <ul>
+          <li>Library with grades and notes, the player and all six skins</li>
+          <li>Hunting list and buy links</li>
+          <li>iPod tab, Torta DJ playlists and the Tortadex</li>
+          <li>5 free price checks to try the collector tools</li>
+        </ul>
+        <a class="btn" data-link="download" href="#download">Download</a>
+      </div></div>
+      <div class="win"><div class="bar">Collector Pro <i>_&#9633;x</i></div><div class="body">
+        <h3>Collector Pro</h3><div class="price" data-price>Price coming soon</div>
+        <ul>
+          <li>Unlimited price checks against Discogs</li>
+          <li>Prepare Listing drafts with an auction or Buy It Now suggestion</li>
+          <li>Sell buttons for items worth selling</li>
+          <li>One license key, works on your Mac</li>
+        </ul>
+        <a class="btn primary" data-link="buy" href="#pricing">Buy Collector Pro</a>
+      </div></div>
+    </div>
+    <p class="sub" style="color:var(--text)">Price checks use the free personal token from your own Discogs account.</p>
+  </section>
+
+  <section id="faq" class="wrap">
+    <h2 style="color:var(--text)">Questions</h2>
+    <details><summary>Does it work on my Mac?</summary><p>Yes, on Intel and Apple Silicon Macs running macOS 13 or newer. The first time you open it, macOS will warn that it isn't from the App Store: right-click BigBatch, choose Open, then confirm. You only do this once.</p></details>
+    <details><summary>Is it safe? What does it remember?</summary><p>Your searches, library and collection are stored only on your own Mac. Nothing is uploaded unless you choose to send a help report yourself. You can switch search memory off or clear it any time.</p></details>
+    <details><summary>How do the price checks work?</summary><p>BigBatch looks up the lowest current asking price on Discogs for each item and applies a rough condition factor. It's a guide, not an appraisal: fees and shipping come out of what you keep, so compare with eBay's sold listings before you list anything.</p></details>
+    <details><summary>Can it save music or video?</summary><p>BigBatch can save audio and video that you have the right to keep: your own uploads, Creative Commons and public-domain material, and anything you have permission to save. You're responsible for following copyright law and each site's terms of service.</p></details>
+    <details><summary>How does the AI playlist maker work?</summary><p>Torta works in two modes. Quick mode matches your words to the track names in your library, entirely on your Mac. If you paste your own Claude API key in Options, Torta uses it for smarter mixes; in that mode your request and your track titles are sent to Anthropic using your key, and you pay for your own usage. The key is kept in your Mac's Keychain.</p></details>
+    <details><summary>Does BigBatch work with iPods?</summary><p>It can prepare iPod-friendly files and copy them to Rockbox iPods, or add them to a playlist in the Music app so you can sync a stock iPod. This part is new, so tell us if your model doesn't behave.</p></details>
+    <details><summary>Something broke. Now what?</summary><p>Open the Help tab. Run Check tests the app's tools, and Send Help Report bundles a screenshot and diagnostics into a zip you can send to us. Nothing is sent automatically.</p></details>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p><b>BigBatch</b> &middot; made for people who still love owning music.</p>
+    <p>Disclosure: some links to eBay and other stores may earn BigBatch a small commission when you buy. It costs you nothing extra.</p>
+    <p>BigBatch is an independent app. It is not affiliated with or endorsed by Apple, Discogs, eBay, Bandcamp or any music player or label mentioned here. All trademarks belong to their owners.</p>
+    <p><a href="#top">Back to top</a></p>
+  </div>
+</footer>
+
+<script>
+  // Fill in your real links here. Leave blank to keep the buttons pointing at the page sections.
+  const CONFIG = {
+    download: "",   // e.g. a GitHub release or your own hosting URL for BigBatch.zip
+    buy: "",        // your Lemon Squeezy (or other) checkout URL for Collector Pro
+    price: ""       // e.g. "$19", shown on the Collector Pro card
+  };
+
+  for (const a of document.querySelectorAll("[data-link]")) {
+    const url = CONFIG[a.dataset.link];
+    if (url) { a.href = url; a.rel = "noopener"; }
+    else {  // no link yet: show an honest "coming soon" instead of a dead button
+      a.removeAttribute("href");
+      a.setAttribute("aria-disabled", "true");
+      a.style.opacity = ".55"; a.style.cursor = "not-allowed";
+      a.textContent = a.dataset.link === "download" ? "Download coming soon" : "Collector Pro coming soon";
+    }
+  }
+  if (CONFIG.price) for (const el of document.querySelectorAll("[data-price]")) el.textContent = CONFIG.price;
+
+  // skin switcher
+  const btns = [...document.querySelectorAll("[data-skin-btn]")];
+  function setSkin(name) {
+    document.body.dataset.skin = name;
+    btns.forEach(b => b.setAttribute("aria-pressed", String(b.dataset.skinBtn === name)));
+    try { localStorage.setItem("bb-skin", name); } catch (e) {}
+  }
+  btns.forEach(b => b.addEventListener("click", () => setSkin(b.dataset.skinBtn)));
+  try { const s = localStorage.getItem("bb-skin"); if (s) setSkin(s); } catch (e) {}
+</script>
+</body>
+</html>
