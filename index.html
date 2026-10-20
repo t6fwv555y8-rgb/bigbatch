@@ -6,6 +6,18 @@
 <title>BigBatch</title>
 <meta name="description" content="BigBatch is a retro-skinned Mac app for collectors: hunt for sealed copies, track what you want, price your shelf, and keep a library with a classic desktop player.">
 <link rel="icon" href="img/icon.png">
+<link rel="canonical" href="https://t6fwv555y8-rgb.github.io/bigbatch/">
+<meta name="theme-color" content="#1a3a8a">
+<meta property="og:type" content="website">
+<meta property="og:title" content="BigBatch: a retro Mac app for music collectors">
+<meta property="og:description" content="BigBatch is a retro-skinned Mac app for collectors: hunt for sealed copies, track what you want, price your shelf, and keep a library with a classic desktop player.">
+<meta property="og:url" content="https://t6fwv555y8-rgb.github.io/bigbatch/">
+<meta property="og:image" content="https://t6fwv555y8-rgb.github.io/bigbatch/img/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="BigBatch: a retro Mac app for music collectors">
+<meta name="twitter:description" content="BigBatch is a retro-skinned Mac app for collectors: hunt for sealed copies, track what you want, price your shelf, and keep a library with a classic desktop player.">
+<meta name="twitter:image" content="https://t6fwv555y8-rgb.github.io/bigbatch/img/og.jpg">
+
 <style>
   /* Skins mirror the app. Switch with the buttons in the Skins section. */
   :root {
@@ -126,7 +138,7 @@
         </div>
         <p class="sub">Free to try &middot; Intel and Apple Silicon &middot; macOS 13 or newer</p>
       </div></div>
-      <div class="shot"><img src="img/library.png" alt="BigBatch with the Sega Red skin, showing the library and the built-in player"></div>
+      <div class="shot"><img src="img/library.jpg" alt="BigBatch with the Sega Red skin, showing the library and the built-in player"></div>
     </div>
   </div>
 
@@ -183,10 +195,10 @@
           <button class="btn small" data-skin-btn="bubble" aria-pressed="false">Bubblegum</button>
         </div>
         <div class="gallery">
-          <figure class="shot"><img src="img/buy-strip.png" alt="Search tab with the Buy it strip in the Vaporwave skin" loading="lazy"><figcaption>Search, with one-click buy links and a Sealed button.</figcaption></figure>
-          <figure class="shot"><img src="img/hunting.png" alt="The hunting list in the Midnight Amp skin" loading="lazy"><figcaption>Your hunting list: what you keep searching for.</figcaption></figure>
-          <figure class="shot"><img src="img/collection.png" alt="Collection tab showing a valuable record marked SELL and a cheap CD marked keep" loading="lazy"><figcaption>Your collection: SELL only when it's worth it.</figcaption></figure>
-          <figure class="shot"><img src="img/ipod.png" alt="The iPod tab in the Midnight Amp skin" loading="lazy"><figcaption>iPod tab: formats, Rockbox copy and Music sync.</figcaption></figure>
+          <figure class="shot"><img src="img/buy-strip.jpg" alt="Search tab with the Buy it strip in the Vaporwave skin" loading="lazy"><figcaption>Search, with one-click buy links and a Sealed button.</figcaption></figure>
+          <figure class="shot"><img src="img/hunting.jpg" alt="The hunting list in the Midnight Amp skin" loading="lazy"><figcaption>Your hunting list: what you keep searching for.</figcaption></figure>
+          <figure class="shot"><img src="img/collection.jpg" alt="Collection tab showing a valuable record marked SELL and a cheap CD marked keep" loading="lazy"><figcaption>Your collection: SELL only when it's worth it.</figcaption></figure>
+          <figure class="shot"><img src="img/ipod.jpg" alt="The iPod tab in the Midnight Amp skin" loading="lazy"><figcaption>iPod tab: formats, Rockbox copy and Music sync.</figcaption></figure>
         </div>
       </div>
     </div>
@@ -249,6 +261,9 @@
     <details><summary>How does the AI playlist maker work?</summary><p>Torta works in two modes. Quick mode matches your words to the track names in your library, entirely on your Mac. If you paste your own Claude API key in Options, Torta uses it for smarter mixes; in that mode your request and your track titles are sent to Anthropic using your key, and you pay for your own usage. The key is kept in your Mac's Keychain.</p></details>
     <details><summary>Does BigBatch work with iPods?</summary><p>It can prepare iPod-friendly files and copy them to Rockbox iPods, or add them to a playlist in the Music app so you can sync a stock iPod. This part is new, so tell us if your model doesn't behave.</p></details>
     <details><summary>Can it split a full album into separate tracks?</summary><p>Yes. Full albums are marked with a disc icon in search results, and BigBatch asks whether to split them into one file per track. It uses the track markers in the video when there are any. When there aren't, it looks for the silent gaps between songs, which works well on most albums but can't separate songs that run straight into each other. Gap-based splits keep the original file next to the tracks, so nothing is lost.</p></details>
+    <details><summary>What is Free &amp; legal mode?</summary><p>A switch above the search box. In Free &amp; legal mode, BigBatch searches the Internet Archive for music that is free to keep: Creative Commons and public-domain releases, netlabel albums, and live recordings of bands that allow taping. Each result shows its license, and a SOURCE.txt in the download folder records where the music came from. Licenses are as stated by the uploader, so check them before reusing anything.</p></details>
+    <details><summary>Can I listen to my music while I work?</summary><p>Yes. The Torta player is a small, Torta-shaped window with the time display, play controls and a Radio menu. Radio plays your saved music as a station: all your music, top graded, artists you follow, newest downloads, or Torta's playlist. Media keys work. Click the Torta and it dances.</p></details>
+    <details><summary>Can I find an artist's social accounts?</summary><p>Yes. When you search for an artist, the Socials row gives you one-click searches for their website, Instagram, Facebook, X, TikTok and SoundCloud. They open in your browser, and BigBatch doesn't send anything about you.</p></details>
     <details><summary>Can I get my records professionally graded?</summary><p>Yes. Professional grading companies will authenticate a record, give it a condition grade, and seal it in a holder. It usually only makes sense for rare, sealed or high-value pieces, and a sealed holder generally means you can't play it. BigBatch doesn't do any grading itself. Its Collection tab has a Get graded guide that links to services such as <a href="https://www.audiomediagrading.com/">Audio Media Grading</a>, <a href="https://vmgvinyl.com/">Vintage Media Grading</a> and <a href="https://tunedingrading.com/">Tuned In Grading</a>. We aren't affiliated with them. Check each company's current rules, formats and prices on its own site before you send anything.</p></details>
     <details><summary>What's your refund policy?</summary><p>Collector Pro has a 14-day refund window, no questions asked. See the <a href="refund.html">Refund Policy</a>.</p></details>
     <details><summary>Where do I get help?</summary><p>Open an issue on our <a href="https://github.com/t6fwv555y8-rgb/bigbatch/issues">support page</a>. Issues are public, so please don't include personal information, order numbers or license keys. You can also use the Help tab inside the app to build a diagnostic report.</p></details>

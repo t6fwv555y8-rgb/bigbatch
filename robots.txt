@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://t6fwv555y8-rgb.github.io/bigbatch/sitemap.xml
